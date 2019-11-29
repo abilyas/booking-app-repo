@@ -1,0 +1,63 @@
+<h1>Flight Search!</h1>
+
+<form #f="ngForm" novalidate flightRoundTrip>
+
+    <div *ngIf="f?.control?.hasError('round-trip')">
+        Round flights are not possible.
+    </div>
+
+    <div class="form-group">
+        <label>From</label>
+        <input class="form-control"
+               [(ngModel)]="from"
+               name="from"
+               required
+               minlength="3"
+               maxlength="30"
+               flightCity="Amsterdam,Brussel"
+               flightAsyncCity
+               pattern="[a-zA-ZöäüßÖÄÜ]+">
+
+        <div *ngIf="f?.controls?.from?.hasError('required')">
+            This field is a required field.
+        </div>
+
+
+    </div>
+
+    <div class="form-group">
+        <label>To</label>
+        <input class="form-control" [(ngModel)]="to" name="to" flightE2eLocator="to">
+    </div>
+    <div class="form-group">
+        <button
+            flightE2eLocator="search"
+            class="btn btn-primary"
+            name="btnSearch"
+            [disabled]="!f.valid || animationInProgress"
+            (click)="search()">Search
+        </button>
+    </div>
+
+</form>
+
+<div class="row">
+    <div *ngFor="let f of flights" class="col-sm-6 col-md-4 col-lg-3 ">
+        <flight-card [item]="f"
+                     [(selectedItem)]="selectedFlight"
+                     (specialAnimationStatus)="disableButton($event)">
+
+            <a class="btn btn-default"
+               [routerLink]="['../flight-edit', f.id]">Edit</a>
+
+        </flight-card>
+
+    </div>
+</div>
+
+<div class="row" style="margin-top:40px">
+<pre>
+----------------------
+{{selectedFlight | json}}
+</pre>
+</div>

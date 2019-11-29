@@ -1,0 +1,30 @@
+<nav class="navbar navbar-default">
+    <ul class="nav navbar-nav">
+        <li routerLinkActive="active"><a [routerLink]="['/home', {showDetail:false}]"
+                                         [preserveQueryParams]="true">Home</a></li>
+        <li routerLinkActive="active"><a flightE2eLocator="flight" [routerLink]="['/flight-booking']"
+                                         [preserveQueryParams]="true">Flight booking</a></li>
+        <li routerLinkActive="active"><a [routerLink]="['/bookings']" [preserveQueryParams]="true">Your bookings</a>
+        </li>
+
+    </ul>
+</nav>
+
+<div class="container">
+
+    <div class="row">
+        <router-outlet></router-outlet>
+    </div>
+
+    <div class="row">
+        <router-outlet name="aux"></router-outlet>
+    </div>
+
+</div>
+
+<div *ngIf="showWaitInfo"
+     style="position:absolute; left:10px; top:10px; width:200px; height:50px; background-color: yellow">
+    Please wait ...
+</div>
+
+<!-- Fußzeile -->
